@@ -23,7 +23,7 @@ const babelLoaderConfiguration = {
     options: {
       cacheDirectory: true,
       // The 'react-native' preset is recommended to match React Native's packager
-      presets: ['react-native'],
+      presets: ['react-native','@babel/preset-env'],
       // Re-write paths to import only the modules needed by the app
       plugins: ['react-native-web']
     }

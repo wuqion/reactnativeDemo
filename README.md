@@ -13,6 +13,8 @@ yarn add --dev babel-loader url-loader webpack webpack-cli webpack-dev-server
 
 yarn add --dev babel-plugin-react-native-web
 
+yarn add @babel/preset-env
+
 这个不要用yarn，不然版本下不对
 npm i babel-preset-react-native@5
 ```
@@ -44,7 +46,7 @@ const babelLoaderConfiguration = {
     options: {
       cacheDirectory: true,
       // The 'react-native' preset is recommended to match React Native's packager
-      presets: ['react-native'],
+      presets: ['react-native','@babel/preset-env'],
       // Re-write paths to import only the modules needed by the app
       plugins: ['react-native-web']
     }
@@ -210,3 +212,24 @@ export default App;
 ```
 react-native-web 官方地址
 http://necolas.github.io/react-native-web/docs/?path=/docs/guides-multi-platform--page
+
+注意要在webpack.config.js加入@babel/preset-env 如下面这样，官方没有说明
+const babelLoaderConfiguration = {
+  test: /\.js$/,
+  // Add every directory that needs to be compiled by Babel during the build.
+  include: [
+    path.resolve(appDirectory, 'index.web.js'),
+    path.resolve(appDirectory, 'src'),
+    path.resolve(appDirectory, 'node_modules/react-native-uncompiled')
+  ],
+  use: {
+    loader: 'babel-loader',
+    options: {
+      cacheDirectory: true,
+      // The 'react-native' preset is recommended to match React Native's packager
+      presets: ['react-native','@babel/preset-env'],
+      // Re-write paths to import only the modules needed by the app
+      plugins: ['react-native-web']
+    }
+  }
+};v
